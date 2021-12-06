@@ -8,7 +8,7 @@ import useRecordingsList from "../hooks/useRecordingList";
 
 export default function RecordingsList({ audio }) {
     const { recordings, deleteAudio } = useRecordingsList(audio);
-    console.log(recordings);
+    // console.log(recordings);
     return (
         <div className="recordings-container">
             {recordings.length > 0 ? (

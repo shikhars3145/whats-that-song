@@ -29,6 +29,22 @@ function Home() {
             })
 
     }
+    function handleRecordings() {
+        console.log(audio);
+
+        if (audio) {
+            const data = {
+                audio: audio
+            }
+            axios.post("http://localhost:5000/uploadRecording", data)
+                .then(res => {
+                    console.log(res);
+                })
+        }
+        else {
+
+        }
+    }
 
     return (
         <div className="home">
@@ -65,7 +81,7 @@ function Home() {
                     </Typography>
                     <Recorder recorderState={recorderState} handlers={handlers} />
                     <RecordingsList audio={audio} />
-                    <Button variant="contained">Upload</Button>
+                    <Button variant="contained" onClick={handleRecordings}>Upload</Button>
                 </div>
             </Modal>
         </div >
