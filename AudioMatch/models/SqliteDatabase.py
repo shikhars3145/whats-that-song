@@ -12,17 +12,18 @@ class SqliteDatabase():
 
   def connect(self):
     sqlite3.register_adapter(int64, lambda val: int(val))
-    self.conn = sqlite3.connect('AudioMatch/db/fingerprints.db')
+    
+    self.conn = sqlite3.connect('AudioMatch/db/fingerprints.db',check_same_thread=False)
     self.conn.text_factory = str
 
     self.cur = self.conn.cursor()
 
-    print(colored('sqlite - connection opened','white',attrs=['dark']))
+    print('sqlite - connection opened')
 
   def __del__(self):
     self.conn.commit()
     self.conn.close()
-    print(colored('sqlite - connection has been closed','white',attrs=['dark']))
+    print('sqlite - connection has been closed')
 
   def query(self, query, values = []):
     self.cur.execute(query, values)

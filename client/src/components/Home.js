@@ -25,7 +25,7 @@ function Home() {
         data.append("file", file);
         axios.post("http://localhost:5000/uploadFile", data)
             .then(res => {
-                console.log(res);
+                console.log("res",res);
             })
 
     }

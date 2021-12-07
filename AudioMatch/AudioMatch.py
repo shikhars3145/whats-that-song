@@ -2,15 +2,26 @@
 # read a single file and add to db
 # read from single file and compare
 # read from microphone and compare
+# import os
+# import time
+# import numpy as np
+# import wavio
+# from itertools import zip_longest
+# from models.FileReader import FileReader
+# from models.SqliteDatabase import  SqliteDatabase
+# import models.Fingerprint as Fingerprint
+# from models.MicReader import MicrophoneReader
+
 import os
 import time
 import numpy as np
 import wavio
 from itertools import zip_longest
-from models.FileReader import FileReader
-from models.SqliteDatabase import  SqliteDatabase
-import models.Fingerprint as Fingerprint
-from models.MicReader import MicrophoneReader
+from AudioMatch.models.FileReader import FileReader
+from AudioMatch.models.SqliteDatabase import  SqliteDatabase
+import AudioMatch.models.Fingerprint as Fingerprint
+from AudioMatch.models.MicReader import MicrophoneReader
+
 
 class AudioMatch:
     def __init__(self):

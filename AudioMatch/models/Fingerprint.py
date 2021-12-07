@@ -100,7 +100,7 @@ def fingerprint(channel_samples, Fs=DEFAULT_FS,
     local_maxima = list(local_maxima)
 
     msg = '   local_maxima: %d of frequency & time pairs'
-    print (colored(msg, attrs=['dark']) % len(local_maxima))
+    print (msg% len(local_maxima))
 
     # return hashes
     return generate_hashes(local_maxima, fan_value=fan_value)

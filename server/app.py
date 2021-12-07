@@ -1,10 +1,16 @@
 import os
+import sys 
 from flask import Flask, request, jsonify, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
 
+from AudioMatch.AudioMatch import AudioMatch
+audioMatch = AudioMatch()
 
-UPLOAD_FOLDER = 'C:/Users/Admin/Desktop/flaskServer/uploadfile'
+UPLOAD_FOLDER = 'server/mp3/toFingerprint'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp3', 'mp4'}
 app = Flask(__name__)
 CORS(app)
@@ -42,6 +48,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             message = {'text': "File Uploaded Successfully"}
             print("3")
+            audioMatch.fingerprintOne(app.config['UPLOAD_FOLDER'], filename)
             return jsonify(message)
             # return redirect(url_for('download_file', name=filename))
     return '''
@@ -72,3 +79,4 @@ def upload_recorded_file():
 if __name__ == '__main__':
     app.secret_key = 'secret'
     app.run(debug=True, host='0.0.0.0')
+
