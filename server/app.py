@@ -1,5 +1,6 @@
+from AudioMatch.AudioMatch import AudioMatch
 import os
-import sys 
+import sys
 from flask import Flask, request, jsonify, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
@@ -7,11 +8,11 @@ current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
 
-from AudioMatch.AudioMatch import AudioMatch
 audioMatch = AudioMatch()
 
 UPLOAD_FOLDER = 'server/mp3/toFingerprint'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp3', 'mp4'}
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png',
+                      'jpg', 'jpeg', 'gif', 'mp3', 'mp4', 'wav'}
 app = Flask(__name__)
 CORS(app)
 
@@ -51,6 +52,7 @@ def upload_file():
             audioMatch.fingerprintOne(app.config['UPLOAD_FOLDER'], filename)
             return jsonify(message)
             # return redirect(url_for('download_file', name=filename))
+        return jsonify({'text': "There is some error in uplaoding file"})
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -69,14 +71,28 @@ def download_file(name):
 
 @app.route('/uploadRecording', methods=['POST'])
 def upload_recorded_file():
-    print("Data is", request)
+    if 'file' not in request.files:
+        message = {'text': "Please Record any File"}
+        print("1")
+        return jsonify(message)
+    file = request.files['file']
+    if file.filename == '':
+        message = {'text': "Please Record any File"}
+        print("2")
+        return jsonify(message)
+    if file and allowed_file(file.filename):
+        print("file found **************", file.filename)
 
-    print(request.data)
-    message = {'text': "Recorded File uploaded Successfully"}
-    return jsonify(message)
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        message = {'text': "File Uploaded Successfully"}
+        print("3")
+        audioMatch.fingerprintOne(app.config['UPLOAD_FOLDER'], filename)
+        return jsonify(message)
+        # return redirect(url_for('download_file', name=filename))
+    return jsonify({'text': "There is some error in uplaoding file"})
 
 
 if __name__ == '__main__':
     app.secret_key = 'secret'
     app.run(debug=True, host='0.0.0.0')
-

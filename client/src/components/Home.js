@@ -25,23 +25,25 @@ function Home() {
         data.append("file", file);
         axios.post("http://localhost:5000/uploadFile", data)
             .then(res => {
-                console.log("res",res);
+                console.log("res", res);
             })
 
     }
-    function handleRecordings() {
+    async function handleRecordings() {
         console.log(audio);
 
         if (audio) {
-            const data = {
-                audio: audio
+            const file = await fetch(audio).then(r => r.blob()).then(blobFile => new File([blobFile], Date.now() + ".wav", { type: "audio/wav" }));
+            if (file) {
+                const data = new FormData();
+                const fileName = Date.now() + file.name;
+                data.append("name", fileName);
+                data.append("file", file);
+                axios.post("http://localhost:5000/uploadRecording", data)
+                    .then(res => {
+                        console.log(res);
+                    })
             }
-            axios.post("http://localhost:5000/uploadRecording", data)
-                .then(res => {
-                    console.log(res);
-                })
-        }
-        else {
 
         }
     }
