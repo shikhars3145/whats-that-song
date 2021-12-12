@@ -83,7 +83,7 @@ export default function useRecorder() {
             };
 
             recorder.onstop = () => {
-                const blob = new Blob(chunks, { type: "audio/wav; codecs=opus" });
+                const blob = new Blob(chunks, { type: "audio/wav; codecs=pcm" });
                 console.log(blob);
                 console.log("Audio", chunks);
                 console.log("File is", window.URL.createObjectURL(blob));
