@@ -1,3 +1,6 @@
+body{
+  background-color: lightblue;
+}
 .home__heading{
   display: flex;
   align-items: center;
@@ -12,7 +15,10 @@
   
   position: absolute;
   width: 100%;
+  
   top:40%;
+  
+  
   
   
   
@@ -34,6 +40,7 @@
   background-color:white;
   border-radius: 0.3rem;
   padding:0.8rem;
+  background-color: lightblue;
 }
 .home__modal Input{
   margin:1rem;

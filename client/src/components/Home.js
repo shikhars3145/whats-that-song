@@ -6,6 +6,7 @@ import { Button, Input } from '@mui/material';
 import Recorder from './Recorder';
 import useRecorder from '../hooks/useRecorder';
 import RecordingsList from './Recordings';
+import Alert from '@mui/material/Alert';
 import axios from 'axios';
 
 
@@ -15,11 +16,13 @@ function Home() {
     const [openRecorder, setOpenRecorder] = React.useState(false);
     const { recorderState, ...handlers } = useRecorder();
     const [file, setFile] = React.useState(null)
+    const [message, setmessage] = React.useState(null);
     const { audio } = recorderState;
 
     function handleUpload() {
         console.log(file);
-        const data = new FormData();
+        if(file){
+            const data = new FormData();
         const fileName = Date.now() + file.name;
         data.append("name", fileName);
         data.append("file", file);
@@ -27,6 +30,11 @@ function Home() {
             .then(res => {
                 console.log("res", res);
             })
+        }
+        else{
+            setmessage("Please select a file");
+        }
+        
 
     }
     async function handleRecordings() {
@@ -44,7 +52,11 @@ function Home() {
                         console.log(res);
                     })
             }
+            
 
+        }
+        else{
+            setmessage("Please record an audio");
         }
     }
 
@@ -54,30 +66,35 @@ function Home() {
                 <h2>What's The Song</h2>
             </div>
             <div className="home__buttons">
-                <button onClick={() => setOpenRecorder(true)}>Recognise from clip</button>
-                <button onClick={() => setOpenFile(true)}>Add audio to database</button>
+                <Button variant="contained" onClick={() => setOpenRecorder(true)}>Recognise from clip</Button>
+                <Button variant="contained"onClick={() => setOpenFile(true)}>Add audio to database</Button>
             </div>
+            
             <Modal
                 open={openFile}
-                onClose={() => setOpenFile(false)}
+                onClose={() => {setOpenFile(false);setmessage(null)}}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
+               
                 <div className="home__modal">
+                {message?<Alert  onClose={()=>{setmessage(null)}}severity="error">{message}</Alert>:null}
                     <Typography id="modal-modal-title" variant="h6" component="h2" textAlign="center">
                         Add a File
                     </Typography>
                     <Input type="file" onChange={(e) => setFile(e.target.files[0])}></Input>
                     <Button variant="contained" onClick={handleUpload}>Upload</Button>
                 </div>
+                
             </Modal>
             <Modal
                 open={openRecorder}
-                onClose={() => setOpenRecorder(false)}
+                onClose={() => {setOpenRecorder(false);setmessage(null)}}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <div className="home__modal">
+                {message?<Alert  onClose={()=>{setmessage(null)}}severity="error">{message}</Alert>:null}
                     <Typography id="modal-modal-title" variant="h6" component="h2" textAlign="center">
                         Record an Audio
                     </Typography>
