@@ -2,7 +2,8 @@ import React from 'react';
 
 import MicIcon from '@mui/icons-material/Mic';
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
-import CancelIcon from '@mui/icons-material/Cancel';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import PauseIcon from '@mui/icons-material/Pause';
 
 
 function Recorder({ recorderState, handlers }) {
@@ -24,13 +25,15 @@ function Recorder({ recorderState, handlers }) {
                     <span>:</span>
                     <span>{formatSeconds(recordingSeconds)}</span>
                 </div>
+                <div>
                 {initRecording && (
                     <div className="cancel-button-container">
                         <button className="cancel-button" title="Cancel recording" onClick={cancelRecording}>
-                            <CancelIcon />
+                            <CancelOutlinedIcon />
                         </button>
                     </div>
                 )}
+                </div>
             </div>
             <div className="start-button-container">
                 {initRecording ? (
@@ -40,11 +43,11 @@ function Recorder({ recorderState, handlers }) {
                         disabled={recordingSeconds === 0}
                         onClick={saveRecording}
                     >
-                        <PauseCircleFilledIcon />
+                        <PauseIcon />
                     </button>
                 ) : (
                     <button className="start-button" title="Start recording" onClick={startRecording}>
-                        <MicIcon />
+                        <MicIcon sx={{textAlign:"center"}} />
                     </button>
                 )}
             </div>

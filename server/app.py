@@ -1,22 +1,26 @@
-from AudioMatch.AudioMatch import AudioMatch
 import os
 import sys
-from flask import Flask, request, jsonify, redirect, url_for, send_from_directory
-from werkzeug.utils import secure_filename
-from flask_cors import CORS
 current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
+from AudioMatch.AudioMatch import AudioMatch
+from flask import Flask, request, jsonify, redirect, url_for, send_from_directory
+from werkzeug.utils import secure_filename
+from flask_cors import CORS
 
 audioMatch = AudioMatch()
 
 UPLOAD_FOLDER = 'server/mp3/toFingerprint'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png',
                       'jpg', 'jpeg', 'gif', 'mp3', 'mp4', 'wav'}
+
+IDENTIFY_FOLDER = 'server/mp3/identify'
+
 app = Flask(__name__)
 CORS(app)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['IDENTIFY_FOLDER'] = IDENTIFY_FOLDER
 
 
 def allowed_file(filename):
@@ -84,10 +88,11 @@ def upload_recorded_file():
         print("file found **************", file.filename)
 
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file.save(os.path.join(app.config['IDENTIFY_FOLDER'], filename))
         message = {'text': "File Uploaded Successfully"}
         print("3")
-        audioMatch.fingerprintOne(app.config['UPLOAD_FOLDER'], filename)
+        # audioMatch.identifyWav(app.config['UPLOAD_FOLDER'], filename)
+        song = audioMatch.identifyWav(app.config['IDENTIFY_FOLDER']+'/'+filename)
         return jsonify(message)
         # return redirect(url_for('download_file', name=filename))
     return jsonify({'text': "There is some error in uplaoding file"})

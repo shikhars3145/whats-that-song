@@ -7,6 +7,7 @@ import Recorder from './Recorder';
 import useRecorder from '../hooks/useRecorder';
 import RecordingsList from './Recordings';
 import Alert from '@mui/material/Alert';
+import MicIcon from '@mui/icons-material/Mic';
 import axios from 'axios';
 
 
@@ -63,11 +64,11 @@ function Home() {
     return (
         <div className="home">
             <div className="home__heading">
-                <h2>What's The Song</h2>
+                <h2>What's That Song</h2>
             </div>
             <div className="home__buttons">
-                <Button variant="contained" onClick={() => setOpenRecorder(true)}>Recognise from clip</Button>
-                <Button variant="contained"onClick={() => setOpenFile(true)}>Add audio to database</Button>
+                <button variant="contained" onClick={() => setOpenRecorder(true)} className='btn btn--shockwave is-active'><MicIcon sx={{fontSize:"5rem",color:"#1976d2",position:"relative",top:"1.5rem"}}/></button>
+                <Button onClick={() => setOpenFile(true)}>Add audio to database</Button>
             </div>
             
             <Modal
