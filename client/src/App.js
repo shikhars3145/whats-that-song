@@ -1,9 +1,10 @@
 // import { ReactMic } from 'react-mic';
 // import Pizzicato from 'pizzicato'
-import './App.css';
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Home from './components/Home';
-import AudioCheck from './components/AudioCheck';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import AudioCheck from "./components/AudioCheck";
+
 // import { useState } from 'react';
 // import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 // import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
@@ -17,7 +18,6 @@ function App() {
   //   console.log("chunk of real-time data is:", recordedBlob);
   //   chunks.push(recordedBlob);
   //   // console.log(chunks);
-
 
   // }
   // function onStop(recordedBlob) {

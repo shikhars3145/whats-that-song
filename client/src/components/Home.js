@@ -4,8 +4,7 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { Button, Input } from '@mui/material';
 import Recorder from './Recorder';
-import useRecorder from '../hooks/useRecorder';
-import RecordingsList from './Recordings';
+// import useRecorder from '../hooks/useRecorder';
 import Alert from '@mui/material/Alert';
 import MicIcon from '@mui/icons-material/Mic';
 import axios from 'axios';
@@ -15,11 +14,12 @@ import axios from 'axios';
 function Home() {
     const [openFile, setOpenFile] = React.useState(false);
     const [openRecorder, setOpenRecorder] = React.useState(false);
-    const { recorderState, ...handlers } = useRecorder();
+    // const { recorderState, ...handlers } = useRecorder();
     const [file, setFile] = React.useState(null)
     const [message, setmessage] = React.useState(null);
-    const { audio } = recorderState;
-
+    const [audio, setAudio] = React.useState(null);
+    // const { audio } = recorderState;
+    console.log(audio);
     function handleUpload() {
         console.log(file);
         if(file){
@@ -99,8 +99,7 @@ function Home() {
                     <Typography id="modal-modal-title" variant="h6" component="h2" textAlign="center">
                         Record an Audio
                     </Typography>
-                    <Recorder recorderState={recorderState} handlers={handlers} />
-                    <RecordingsList audio={audio} />
+                    <Recorder audio={audio} setAudio={setAudio}/>
                     <Button variant="contained" onClick={handleRecordings}>Upload</Button>
                 </div>
             </Modal>
