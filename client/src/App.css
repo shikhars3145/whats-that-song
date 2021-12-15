@@ -1,31 +1,25 @@
-body{
+body {
   background-color: lightblue;
 }
 
-.home__heading{
+.home__heading {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  
-  
 }
-.home__buttons{
-  
+.home__buttons {
   display: flex;
   flex-direction: column;
-  
-  align-items: center;  
+
+  align-items: center;
   padding: 8rem;
-  
-  
 }
-.home__buttons button{
+.home__buttons button {
   padding: 0.7rem;
   cursor: pointer;
-
 }
-.home__modal{
+.home__modal {
   display: flex;
   flex-direction: column;
   height: auto;
@@ -33,30 +27,31 @@ body{
   top: 27%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width:50%;
-  background-color:white;
+  width: 50%;
+  background-color: white;
   border-radius: 0.3rem;
-  padding:0.8rem;
+  padding: 0.8rem;
   /* background-color: lightblue; */
 }
-.home__modal Input{
-  margin:1rem;
-
+.home__modal Input {
+  margin: 1rem;
+}
+.home__result {
+  text-align: center;
+  font-size: 1.2rem;
 }
 
 .controls-container {
- 
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   padding: 1rem;
-  
 }
 
 .recorder-display {
   /* width: 50%; */
   display: flex;
-  
+
   justify-content: space-evenly;
   align-items: center;
   font-size: 1.8rem;
@@ -90,7 +85,7 @@ body{
 }
 
 .cancel-button-container {
-  padding:0.4rem;
+  padding: 0.4rem;
   display: grid;
   place-content: center;
   animation-name: animated-block;
@@ -119,7 +114,6 @@ body{
   width: 15%;
   display: grid;
   place-content: center;
-  
 }
 
 .start-button:hover {
@@ -130,8 +124,6 @@ body{
 .start-button {
   width: 40px;
   height: 40px;
-  
-  
 }
 .recordings-container {
   height: 85%;
@@ -203,15 +195,14 @@ body{
   color: #fd1c03;
 }
 
-
 .btn-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
 }
 
 .btn {
@@ -219,7 +210,7 @@ body{
   line-height: 6.4rem;
   background: #fff;
   border-radius: 50%;
-  
+
   margin: 1.6rem;
   font-size: 0.8rem;
   border: none;
@@ -230,88 +221,88 @@ body{
 
 .btn--shockwave.is-active {
   -webkit-animation: shockwaveJump 1s ease-out infinite;
-          animation: shockwaveJump 1s ease-out infinite;
+  animation: shockwaveJump 1s ease-out infinite;
 }
 .btn--shockwave.is-active:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   border-radius: 50%;
-  -webkit-animation: shockwave 1s .65s ease-out infinite;
-          animation: shockwave 1s .65s ease-out infinite;
+  -webkit-animation: shockwave 1s 0.65s ease-out infinite;
+  animation: shockwave 1s 0.65s ease-out infinite;
 }
 .btn--shockwave.is-active:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   border-radius: 50%;
-  -webkit-animation: shockwave 1s .5s ease-out infinite;
-          animation: shockwave 1s .5s ease-out infinite;
+  -webkit-animation: shockwave 1s 0.5s ease-out infinite;
+  animation: shockwave 1s 0.5s ease-out infinite;
 }
 
 @-webkit-keyframes shockwaveJump {
   0% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
   40% {
     -webkit-transform: scale(1.08);
-            transform: scale(1.08);
+    transform: scale(1.08);
   }
   50% {
     -webkit-transform: scale(0.98);
-            transform: scale(0.98);
+    transform: scale(0.98);
   }
   55% {
     -webkit-transform: scale(1.02);
-            transform: scale(1.02);
+    transform: scale(1.02);
   }
   60% {
     -webkit-transform: scale(0.98);
-            transform: scale(0.98);
+    transform: scale(0.98);
   }
   100% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
 }
 
 @keyframes shockwaveJump {
   0% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
   40% {
     -webkit-transform: scale(1.08);
-            transform: scale(1.08);
+    transform: scale(1.08);
   }
   50% {
     -webkit-transform: scale(0.98);
-            transform: scale(0.98);
+    transform: scale(0.98);
   }
   55% {
     -webkit-transform: scale(1.02);
-            transform: scale(1.02);
+    transform: scale(1.02);
   }
   60% {
     -webkit-transform: scale(0.98);
-            transform: scale(0.98);
+    transform: scale(0.98);
   }
   100% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
 }
 @-webkit-keyframes shockwave {
   0% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.15), inset 0 0 1px rgba(0, 0, 0, 0.15);
   }
   95% {
@@ -319,13 +310,13 @@ body{
   }
   100% {
     -webkit-transform: scale(2.25);
-            transform: scale(2.25);
+    transform: scale(2.25);
   }
 }
 @keyframes shockwave {
   0% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.15), inset 0 0 1px rgba(0, 0, 0, 0.15);
   }
   95% {
@@ -333,23 +324,23 @@ body{
   }
   100% {
     -webkit-transform: scale(2.25);
-            transform: scale(2.25);
+    transform: scale(2.25);
   }
 }
 .btn--jump.is-active {
-  -webkit-animation: .4s jump ease infinite alternate;
-          animation: .4s jump ease infinite alternate;
+  -webkit-animation: 0.4s jump ease infinite alternate;
+  animation: 0.4s jump ease infinite alternate;
 }
 
 @-webkit-keyframes jump {
   0% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   }
   100% {
     -webkit-transform: scale(1.05);
-            transform: scale(1.05);
+    transform: scale(1.05);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 }
@@ -357,12 +348,12 @@ body{
 @keyframes jump {
   0% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   }
   100% {
     -webkit-transform: scale(1.05);
-            transform: scale(1.05);
+    transform: scale(1.05);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 }

@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Button, Input } from '@mui/material';
 import Recorder from './Recorder';
 // import useRecorder from '../hooks/useRecorder';
+import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import MicIcon from '@mui/icons-material/Mic';
 import axios from 'axios';
@@ -15,14 +16,23 @@ function Home() {
     const [openFile, setOpenFile] = React.useState(false);
     const [openRecorder, setOpenRecorder] = React.useState(false);
     // const { recorderState, ...handlers } = useRecorder();
+    const [result, setResult] = React.useState(false);
+    const [details, setDetails] = React.useState("No Such Song Found")
     const [file, setFile] = React.useState(null)
     const [message, setmessage] = React.useState(null);
     const [audio, setAudio] = React.useState(null);
+    const [loading,setLoading]=React.useState(false);
+    const [successMessage, setSuccessMessage] = React.useState(null)
     // const { audio } = recorderState;
-    console.log(audio);
+    // console.log(audio);
+    React.useEffect(() => {
+        let newDetail=details.replace(/_/g," ");
+        setDetails(newDetail);
+    }, [details])
     function handleUpload() {
-        console.log(file);
+        // console.log(file);
         if(file){
+            setLoading(true);
             const data = new FormData();
         const fileName = Date.now() + file.name;
         data.append("name", fileName);
@@ -30,6 +40,10 @@ function Home() {
         axios.post("http://localhost:5000/uploadFile", data)
             .then(res => {
                 console.log("res", res);
+                setLoading(false);
+                setOpenFile(false);
+                setSuccessMessage("File Uploaded Successfully");
+
             })
         }
         else{
@@ -39,9 +53,10 @@ function Home() {
 
     }
     async function handleRecordings() {
-        console.log(audio);
+        // console.log(audio);
 
         if (audio) {
+            setLoading(true);
             const file = await fetch(audio).then(r => r.blob()).then(blobFile => new File([blobFile], Date.now() + ".wav", { type: "audio/wav" }));
             if (file) {
                 const data = new FormData();
@@ -51,6 +66,13 @@ function Home() {
                 axios.post("http://localhost:5000/uploadRecording", data)
                     .then(res => {
                         console.log(res);
+                        setLoading(false);
+                        setDetails(res.data.SONG_NAME);
+                        setOpenRecorder(false);
+                        setResult(true);
+                        setSuccessMessage("WOHOO!! We Got Your Song");
+                        
+
                     })
             }
             
@@ -80,6 +102,7 @@ function Home() {
                
                 <div className="home__modal">
                 {message?<Alert  onClose={()=>{setmessage(null)}}severity="error">{message}</Alert>:null}
+                {loading && <CircularProgress sx={{position:"absolute",top:"40%",left:"45%"}}/>}
                     <Typography id="modal-modal-title" variant="h6" component="h2" textAlign="center">
                         Add a File
                     </Typography>
@@ -96,6 +119,7 @@ function Home() {
             >
                 <div className="home__modal">
                 {message?<Alert  onClose={()=>{setmessage(null)}}severity="error">{message}</Alert>:null}
+                {loading && <CircularProgress sx={{position:"absolute",top:"40%",left:"45%"}}/>}
                     <Typography id="modal-modal-title" variant="h6" component="h2" textAlign="center">
                         Record an Audio
                     </Typography>
@@ -103,6 +127,24 @@ function Home() {
                     <Button variant="contained" onClick={handleRecordings}>Upload</Button>
                 </div>
             </Modal>
+            <Modal
+                open={result}
+                onClose={() => {setResult(false);}}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <div className="home__modal">
+                
+                    <Typography id="modal-modal-title" variant="h6" component="h2" textAlign="center">
+                    WOOHH!!! Here's Your Song
+                    </Typography>
+                    <p className="home__result">
+                        {details}
+                    </p>
+                    
+                </div>
+            </Modal>
+            {successMessage?<Alert sx={{position:"absolute",top:"0",right:"0"}} onClose={()=>{setSuccessMessage(null)}}severity="success">{successMessage}</Alert>:null}
         </div >
     )
 }

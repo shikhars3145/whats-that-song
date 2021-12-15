@@ -93,7 +93,7 @@ def upload_recorded_file():
         print("3")
         # audioMatch.identifyWav(app.config['UPLOAD_FOLDER'], filename)
         song = audioMatch.identifyWav(app.config['IDENTIFY_FOLDER']+'/'+filename)
-        return jsonify(message)
+        return jsonify(song)
         # return redirect(url_for('download_file', name=filename))
     return jsonify({'text': "There is some error in uplaoding file"})
 

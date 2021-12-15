@@ -207,7 +207,7 @@ function Recorder({audio,setAudio}) {
     );
   }
   useEffect(() => {
-    console.log(recordState.blob);
+    // console.log(recordState.blob);
     if(recordState.blob){
       var url = window.URL.createObjectURL(recordState.blob);
       setAudio(url);
