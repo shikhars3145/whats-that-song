@@ -37,12 +37,14 @@ function Home() {
         const fileName = Date.now() + file.name;
         data.append("name", fileName);
         data.append("file", file);
+        console.time('File Upload')
         axios.post("http://localhost:5000/uploadFile", data)
             .then(res => {
                 console.log("res", res);
                 setLoading(false);
                 setOpenFile(false);
                 setSuccessMessage("File Uploaded Successfully");
+                console.timeEnd('File Upload')
 
             })
         }
@@ -63,6 +65,8 @@ function Home() {
                 const fileName = Date.now() + file.name;
                 data.append("name", fileName);
                 data.append("file", file);
+                console.time('Recognise')
+    
                 axios.post("http://localhost:5000/uploadRecording", data)
                     .then(res => {
                         console.log(res);
@@ -71,7 +75,7 @@ function Home() {
                         setOpenRecorder(false);
                         setResult(true);
                         setSuccessMessage("WOHOO!! We Got Your Song");
-                        
+                        console.timeEnd('Recognise')
 
                     })
             }

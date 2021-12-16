@@ -1,6 +1,5 @@
 import sqlite3
 from itertools import zip_longest
-from termcolor import colored
 from numpy import int64
 
 class SqliteDatabase():

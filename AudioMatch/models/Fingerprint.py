@@ -62,19 +62,20 @@ def fingerprint(channel_samples, Fs=DEFAULT_FS,
                 plots=False):
 
     # show samples plot
-    if plots:
-      plt.plot(channel_samples)
-      plt.title('%d samples' % len(channel_samples))
-      plt.xlabel('time (s)')
-      plt.ylabel('amplitude (A)')
-      plt.show()
-      plt.gca().invert_yaxis()
+    # if True:
+    #   plt.plot(channel_samples)
+    #   plt.title('%d samples' % len(channel_samples))
+    #   plt.xlabel('time (s)')
+    #   plt.ylabel('amplitude (A)')
+    #   plt.show()
+    #   plt.gca().invert_yaxis()
 
     # FFT the channel, log transform output, find local maxima, then return
     # locally sensitive hashes.
     # FFT the signal and extract frequency components
 
     # plot the angle spectrum of segments within the signal in a colormap
+     
     arr2D = mlab.specgram(
         channel_samples,
         NFFT=wsize,
@@ -83,10 +84,17 @@ def fingerprint(channel_samples, Fs=DEFAULT_FS,
         noverlap=int(wsize * wratio))[0]
 
     # show spectrogram plot
-    if plots:
-      plt.plot(arr2D)
-      plt.title('FFT')
-      plt.show()
+    # if True:
+    #   plt.specgram(
+    #     channel_samples,
+    #     NFFT=wsize,
+    #     Fs=Fs,
+    #     window=mlab.window_hanning,
+    #     noverlap=int(wsize * wratio))
+    #   plt.ylabel('Frequency [Hz]')
+    #   plt.xlabel('Time [sec]')
+    #   plt.show()
+
 
     # apply log transform since specgram() returns linear array
     arr2D = 10 * np.log10(arr2D) # calculates the base 10 logarithm for all elements of arr2D
@@ -133,15 +141,16 @@ def get_2D_peaks(arr2D, plot=False, amp_min=DEFAULT_AMP_MIN):
     time_idx = [x[0] for x in peaks_filtered]
 
     # scatter of the peaks
-    if plot:
-      fig, ax = plt.subplots()
-      ax.imshow(arr2D)
-      ax.scatter(time_idx, frequency_idx)
-      ax.set_xlabel('Time')
-      ax.set_ylabel('Frequency')
-      ax.set_title("Spectrogram")
-      plt.gca().invert_yaxis()
-      plt.show()
+    # if True:
+    #   fig, ax = plt.subplots()
+    #   ax.imshow(arr2D)
+    #   colors = np.array(["yellow"])
+    #   ax.scatter(time_idx, frequency_idx,s=1, c=colors)
+    #   ax.set_xlabel('Time')
+    #   ax.set_ylabel('Frequency')
+    #   ax.set_title("Spectrogram")
+    #   plt.gca().invert_yaxis()
+    #   plt.show()
 
     return zip(frequency_idx, time_idx)
 
